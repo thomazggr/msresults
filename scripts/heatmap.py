@@ -77,4 +77,4 @@ def generate_heat_map(df, cmap="seismic"):
     axmatrix.yaxis.set_label_position('right')
     axmatrix.yaxis.tick_right()
 
-    plt.show()
+    plt.savefig(quality = 95, optimize = True, format = 'jpg', transparent=True)
