@@ -13,7 +13,7 @@ elif ans == 'Y':
 else:
     exit()
 
-mir = 'miR-155'
+mir = 'miR-182'
 
 def gse10694():
     complete_df = pd.read_csv('./datasets/GSE10694/GSE10694_results.txt', sep='\t', skiprows=[0])

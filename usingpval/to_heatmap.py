@@ -50,7 +50,7 @@ order10694 = "111111111111111111111111111111111111111111111111111111111111111111
 order49012 = 'XXXXXXXXXXXXX111111111000000000000'
 
 def run_heatmaps(dataset):
-    path = './junk/' + dataset + '_family.soft'
+    path = './junk/' + dataset + '_family.soft.gz'
     tabela = GEOparse.get_GEO(filepath=path, silent=True)
     valores = tabela.pivot_samples('VALUE')
     if dataset == 'GSE59492':
@@ -76,7 +76,8 @@ def run_heatmaps(dataset):
         pass
     print(dataset)
     print(lista)
-    print(restable)
+    pathtocsv = './csv/' + dataset + '_resultado.csv'
+    restable.to_csv(pathtocsv, index=False)
 
 for ds in datasets:
     run_heatmaps(ds)
