@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import scipy.cluster.hierarchy as sch
 import re
 
-def generate_heat_map(df, cmap="seismic"):
+def generate_heat_map(df, nome,cmap="seismic"):
     """
     Function to generate headmaps with dendrogram
     """
@@ -77,4 +77,4 @@ def generate_heat_map(df, cmap="seismic"):
     axmatrix.yaxis.set_label_position('right')
     axmatrix.yaxis.tick_right()
 
-    plt.savefig(fname='hm.jpg',quality = 95, optimize = True, format = 'jpg', transparent=True)
+    plt.savefig(fname=nome,quality = 95, optimize = True, format = 'jpg', transparent=True)
