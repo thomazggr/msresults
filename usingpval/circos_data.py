@@ -14,7 +14,7 @@ mirdip = mirdipresults()
 def keggpathways(mirdip):
     keggpathways = pd.read_csv('./usingpval/keggo/kegg_david.txt', sep='\t')
     keggpathways.drop(columns=['Category', 'Bonferroni', 'Benjamini', 'Pop Total', '%', 'PValue', 'List Total'], inplace=True)
-    kegg_filtered = keggpathways[keggpathways.Term.str.contains('Sphingolipid signaling pathway')]
+    kegg_filtered = keggpathways[keggpathways.Term.str.contains('Insulin signaling pathway')]
     kegg_filtered.reset_index(inplace=True)
     genes_filtered = str(kegg_filtered.at[0, 'Genes']).replace(', ','|')
     mirstargets = mirdip[mirdip['Gene Symbol'].str.contains(genes_filtered)]
@@ -38,6 +38,6 @@ def buildtable(tablefiltered):
     #df.loc[(len(df.index.values))] = ['0,0,0 '] * len(df.columns)
     df.columns = pd.MultiIndex.from_product([df.columns, ['0,0,0']])
     df2 = df.astype(int)
-    df2.to_csv('./usingpval/data_circos.txt', sep='\t')
+    df2.to_csv('./usingpval/data_circos_inspath.txt', sep='\t')
 
 buildtable(tablefilter)
