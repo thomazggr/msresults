@@ -8,4 +8,4 @@ genes_sources = genes.query('nsources >= 14')
 
 a = pd.DataFrame(genes_sources['gene'].unique())
 a.columns = ['genes']
-print(a['genes'].describe)
+a['genes'].to_clipboard(index=False)
