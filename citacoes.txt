@@ -39,4 +39,20 @@ Nucleic Acids Research, 37, 1, 1-13, Janeiro 2009.
 KANEHISA M E SATO Y. KEGG Mapper for inferring cellular functions from protein sequences.
 Protein Science, 29, 28-35, Janeiro 2020.
 MI H et al. PANTHER version 14: more genomes, a new PANTHER GO-slim and improvements in enrichment analysis tools.
-Nucleic Acids Research. 47, D419–D426, Janeiro 2019.
+Nucleic Acids Research, 47, D419–D426, Janeiro 2019.
+MARCHESINI G et al. Association of Nonalcoholic Fatty Liver Disease with Insulin Resistance.
+The American Journal Of Medicine, 107, 450-455, Novembro 1999.
+UTZSCHNEIDER KM E KAHN SE. REVIEW: The Role of Insulin Resistance in Nonalcoholic Fatty Liver Disease.
+The Journal of Clinical Endocrinology & Metabolism, 91, 12, 4753-4761, Dezembro 2006.
+BUGIANESI E et al. Insulin Resistance in Nonalcoholic Fatty Liver Disease.
+Current Pharmaceutical Design, 16, 17,1941-1951, 2010.
+PAGADALA M et al. Role of Ceramides in Nonalcoholic Fatty Liver Disease.
+Trends in Endocrinology & Metabolism, 23, 8, 365–371, Agosto 2012.
+CHAURASIA B E SUMMERS SA. Ceramides - Lipotoxic inducers of metabolic disorders.
+Trends in Endocrinology & Metabolism, 26, 10, 538-550, Outubro 2015.
+CHAURASIA B et al. Targeting a ceramide double bond improves insulin resistance and hepatic steatosis.
+Science, 365, 386-392, Julho 2019.
+SAMUEL VT E SHULMAN GI. Nonalcoholic Fatty Liver Disease, Insulin Resistance, and Ceramides.
+The New England Journal of Medicine, 381, 19, 1866-1869, Novembro 2019.
+KRZYWINSKI M et al. Circos: an Information Aesthetic for Comparative Genomics.
+Genome Research, Junho 2019.
