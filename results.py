@@ -2,56 +2,96 @@ import pandas as pd
 import numpy as np
 from functools import reduce
 
-pd.options.display.float_format = '{:,.4f}'.format
+pd.options.display.float_format = "{:,.4f}".format
+
 
 def gse10694():
-    results = pd.read_csv('./tbu/GSE10694/GSE10694_results.txt', sep='\t', skiprows=[0], usecols=['logFC', 'miRNA_ID'])
+    results = pd.read_csv(
+        "datasets/GSE10694/GSE10694_results.txt",
+        sep="\t",
+        skiprows=[0],
+        usecols=["logFC", "miRNA_ID"],
+    )
     results.dropna(inplace=True)
-    resultsfilter = results[results.miRNA_ID.str.contains('hsa-miR-378|hsa-miR-224|hsa-miR-221|hsa-miR-214|hsa-miR-99a|hsa-miR-148a|hsa-miR-34a|hsa-miR-155|hsa-miR-222|hsa-miR-93|hsa-miR-422a|hsa-miR-424|hsa-miR-106b|hsa-miR-200b|hsa-miR-181d')]
-    resultsfilter.columns = ['logfc10', 'mir']
-    #resultsfilter.set_index('mir', drop=True, inplace=True)
+    resultsfilter = results[
+        results.miRNA_ID.str.contains(
+            "hsa-miR-378|hsa-miR-221|hsa-miR-222|hsa-miR-155|hsa-miR-422a|hsa-miR-182|hsa-miR-21|hsa-miR-150"
+        )
+    ]
+    resultsfilter.columns = ["logfc10", "mir"]
+    resultsfilter.set_index("mir", drop=True, inplace=True)
     return resultsfilter
+
 
 gse10 = gse10694()
 
+
 def gse49012():
-    results = pd.read_csv('./tbu/GSE49012/GSE49012_w_logfc.txt', sep='\t', usecols=['logFC', 'ID'])
+    results = pd.read_csv(
+        "datasets/GSE49012/GSE49012_w_logfc.txt", sep="\t", usecols=["logFC", "ID"]
+    )
     results.dropna(inplace=True)
-    resultsfilter = results[results.ID.str.contains('hsa-miR-378|hsa-miR-224|hsa-miR-221|hsa-miR-214|hsa-miR-99a|hsa-miR-148a|hsa-miR-34a|hsa-miR-155|hsa-miR-222|hsa-miR-93|hsa-miR-422a|hsa-miR-424|hsa-miR-106b|hsa-miR-200b|hsa-miR-181d')]
-    resultreplace = resultsfilter['ID'].replace(to_replace=r'[*]', value='', regex=True)
-    resultsfilter['ID'] = resultreplace
-    resultsfilter.columns = ['mir','logfc49']
-    resultsfilter.set_index('mir', drop=True, inplace=True)
+    resultsfilter = results[
+        results.ID.str.contains(
+            "hsa-miR-378|hsa-miR-221|hsa-miR-222|hsa-miR-155|hsa-miR-422a|hsa-miR-182|hsa-miR-21|hsa-miR-150"
+        )
+    ]
+    resultreplace = resultsfilter["ID"].replace(to_replace=r"[*]", value="", regex=True)
+    resultsfilter["ID"] = resultreplace
+    resultsfilter.columns = ["mir", "logfc49"]
+    resultsfilter.set_index("mir", drop=True, inplace=True)
     return resultsfilter
+
 
 gse49 = gse49012()
 
+
 def gse59492():
-    results = pd.read_csv('./tbu/GSE59492/GSE59492_w_logfc.txt', sep='\t', usecols=['logFC', 'miRNA_ID_LIST'])
+    results = pd.read_csv(
+        "datasets/GSE59492/GSE59492_w_logfc.txt",
+        sep="\t",
+        usecols=["logFC", "miRNA_ID_LIST"],
+    )
     results.dropna(inplace=True)
-    resultsfilter = results[results.miRNA_ID_LIST.str.contains('hsa-miR-378|hsa-miR-224|hsa-miR-221|hsa-miR-214|hsa-miR-99a|hsa-miR-148a|hsa-miR-34a|hsa-miR-155|hsa-miR-222|hsa-miR-93|hsa-miR-422a|hsa-miR-424|hsa-miR-106b|hsa-miR-200b|hsa-miR-181d')]
-    resultsfilter.columns = ['logfc59', 'mir']
-    resultsfilter.set_index('mir', drop=True, inplace=True)
+    resultsfilter = results[
+        results.miRNA_ID_LIST.str.contains(
+            "hsa-miR-378|hsa-miR-221|hsa-miR-222|hsa-miR-155|hsa-miR-422a|hsa-miR-182|hsa-miR-21|hsa-miR-150"
+        )
+    ]
+    resultsfilter.columns = ["logfc59", "mir"]
+    resultsfilter.set_index("mir", drop=True, inplace=True)
     return resultsfilter
 
-gse59=gse59492()
+
+gse59 = gse59492()
+
 
 def gse74618():
-    results = pd.read_csv('./tbu/GSE74618/GSE74618_results.txt', sep='\t', usecols=['logFC', 'miRNA_ID_LIST'])
+    results = pd.read_csv(
+        "datasets/GSE74618/GSE74618_results.txt",
+        sep="\t",
+        usecols=["logFC", "miRNA_ID_LIST"],
+    )
     results.dropna(inplace=True)
-    resultsfilter = results[results.miRNA_ID_LIST.str.contains('hsa-miR-378|hsa-miR-224|hsa-miR-221|hsa-miR-214|hsa-miR-99a|hsa-miR-148a|hsa-miR-34a|hsa-miR-155|hsa-miR-222|hsa-miR-93|hsa-miR-422a|hsa-miR-424|hsa-miR-106b|hsa-miR-200b|hsa-miR-181d')]
-    resultsfilter.columns = ['logfc74', 'mir']
-    #resultsfilter.set_index('mir', drop=True, inplace=True)
+    resultsfilter = results[
+        results.miRNA_ID_LIST.str.contains(
+            "hsa-miR-378|hsa-miR-221|hsa-miR-222|hsa-miR-155|hsa-miR-422a|hsa-miR-182|hsa-miR-21|hsa-miR-150"
+        )
+    ]
+    resultsfilter.columns = ["logfc74", "mir"]
+    resultsfilter.set_index("mir", drop=True, inplace=True)
     return resultsfilter
 
-gse74=gse74618()
-#print(gse74, gse10)
+
+gse74 = gse74618()
+# print(gse74, gse10)
 result = pd.concat([gse74, gse10, gse59, gse49], axis=0, sort=False)
-'''result = gse10.merge(gse74, on=['mir'])
+result.to_clipboard()
+"""result = gse10.merge(gse74, on=['mir'])
 result2 = result.merge(gse59, on=['mir'])
 result3 = result2.merge(gse49, on=['mir'])
-result3.to_csv('result3.csv')'''
-
+result3.to_csv('result3.csv')"""
+"""
 index='hsa-miR-221,hsa-miR-424,hsa-miR-222,hsa-miR-422a,hsa-miR-148a,hsa-miR-34a,hsa-miR-93,hsa-miR-106b,hsa-miR-155,hsa-miR-181d,hsa-miR-224,hsa-miR-214,hsa-miR-99a,hsa-miR-200b'
 indexl = index.split(',')
 
@@ -69,4 +109,4 @@ GSE74618l = GSE74618val.split(',')
 
 data = {'GSE10694l':GSE10694l, 'GSE59492l':GSE59492l, 'GSE49012l':GSE49012l, 'GSE74618l':GSE74618l}
 df = pd.DataFrame(index=indexl, data=data)
-print(df)
+print(df)"""

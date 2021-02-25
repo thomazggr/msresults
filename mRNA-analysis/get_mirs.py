@@ -1,8 +1,8 @@
 import pandas as pd
 
 mirdip = pd.read_csv(
-    "./mRNA-analysis/mirdip_results_2de3.csv",
-    skiprows=156,
+    "./mRNA-analysis/mirdip_results.csv",
+    skiprows=35,
     usecols=[
         "Gene Symbol",
         "Uniprot",
@@ -15,6 +15,14 @@ print(
     mirdip.groupby("MicroRNA")["Integrated Score"]
     .mean()
     .sort_values(ascending=False)
-    .head(10)
+    .filter(
+        regex="hsa-miR-221|hsa-miR-155|hsa-miR-222|hsa-miR-422a|hsa-miR-150|hsa-miR-378|hsa-miR-182|hsa-miR-21.*",
+        axis="index",
+    )
 )
-print(mirdip.MicroRNA.value_counts().head(10))
+print(
+    mirdip.MicroRNA.value_counts().filter(
+        regex="hsa-miR-221|hsa-miR-155|hsa-miR-222|hsa-miR-422a|hsa-miR-150|hsa-miR-378|hsa-miR-182|hsa-miR-21.*",
+        axis="index",
+    )
+)
