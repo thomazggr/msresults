@@ -11,7 +11,7 @@ mirdip = pd.read_csv(
         "Number of Sources",
     ],
 )
-print(
+"""print(
     mirdip.groupby("MicroRNA")["Integrated Score"]
     .mean()
     .sort_values(ascending=False)
@@ -19,10 +19,17 @@ print(
         regex="hsa-miR-221|hsa-miR-155|hsa-miR-222|hsa-miR-422a|hsa-miR-150|hsa-miR-378|hsa-miR-182|hsa-miR-21.*",
         axis="index",
     )
-)
-print(
+)"""
+"""print(
     mirdip.MicroRNA.value_counts().filter(
         regex="hsa-miR-221|hsa-miR-155|hsa-miR-222|hsa-miR-422a|hsa-miR-150|hsa-miR-378|hsa-miR-182|hsa-miR-21.*",
         axis="index",
     )
+)"""
+print(
+    mirdip[
+        mirdip.MicroRNA.str.contains(
+            "hsa-miR-221|hsa-miR-155|hsa-miR-222|hsa-miR-422a|hsa-miR-150|hsa-miR-378|hsa-miR-182|hsa-miR-21"
+        )
+    ]
 )
