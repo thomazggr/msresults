@@ -21,7 +21,8 @@ GSE10694 GSE49012	14	hsa-miR-520b
 		hsa-miR-101
 		hsa-miR-424
 		hsa-miR-106b
-GSE10694 GSE74618	2	hsa-miR-34a
+GSE10694 GSE74618	2	
+		hsa-miR-34a
 		hsa-miR-451
 GSE10694 GSE59492	1	hsa-miR-146b
 GSE49012 GSE74618	8	hsa-miR-214
@@ -32,7 +33,8 @@ GSE49012 GSE74618	8	hsa-miR-214
 		hsa-miR-183
 		hsa-miR-497
 		hsa-miR-505
-GSE49012 GSE59492	12	hsa-miR-200b
+GSE49012 GSE59492	12	
+		hsa-miR-200b
 		hsa-miR-31
 		hsa-miR-143
 		hsa-miR-10a
