@@ -7,9 +7,11 @@ dfresults = pd.read_csv(
 # dfresults.drop(columns=["t", "B", "Description", "ID", "GB_ACC"], inplace=True)
 colunas = ["id", "adjpval", "pval", "logfc"]
 dfresults.columns = colunas
+print(dfresults.shape)
+
 frames = [
-    dfresults.query("adjpval <= 0.05 & logfc > 1"),
-    dfresults.query("adjpval <= 0.05 & logfc < -1"),
+    dfresults.query("pval <= 0.01 & logfc > 1"),
+    dfresults.query("pval <= 0.01 & logfc < -1"),
 ]
 results_de = pd.concat(frames)
 results_de.reset_index(inplace=True, drop=True)
