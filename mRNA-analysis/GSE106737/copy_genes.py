@@ -17,4 +17,4 @@ frames = [
 results_de = pd.concat(frames)
 results_de.reset_index(inplace=True, drop=True)
 # results_de['id'].to_clipboard(index=False)
-print(results_de.shape)
+print(results_de)
