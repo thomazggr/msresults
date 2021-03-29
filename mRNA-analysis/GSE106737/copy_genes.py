@@ -3,7 +3,7 @@ import pandas as pd
 dfresults = pd.read_csv(
     "./mRNA-analysis/GSE106737/GSE106737.top.table.tsv",
     sep="\t",
-    usecols=["adj.P.Val", "P.Value", "logFC", "SPOT_ID"],
+    usecols=["adj.P.Val", "P.Value", "logFC", "GB_ACC"],
 )
 # dfresults.drop(columns=["t", "B", "Description", "ID", "GB_ACC"], inplace=True)
 colunas = ["adjpval", "pval", "logfc", "id"]

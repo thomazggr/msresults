@@ -31,7 +31,5 @@ hsa-miR-3613
 hsa-miR-4274
 hsa-miR-143
 hsa-miR-551b
-hsa-miR-3613
-hsa-miR-486
 hsa-miR-141
 hsa-miR-3187

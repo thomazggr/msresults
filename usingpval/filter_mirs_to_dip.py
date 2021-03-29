@@ -34,7 +34,7 @@ def gse10694():
         filtra_p["id"].to_csv("./tbu/GSE10694/mirs-pval.txt", index=False)
 
 
-gse10694()
+# gse10694()
 
 
 def gse59492():
@@ -47,8 +47,8 @@ def gse59492():
         filtra_p = filtra_hsa[filtra_hsa.id.str.contains(mir)]
         print(filtra_p)
     elif ans == "N":
-        filtra_p = filtra_hsa.query("pval <= 0.05 & logfc < -1 | logfc > 1")
-        filtra_p["id"].to_csv("./tbu/GSE59492/mirs-pval.txt", index=False)
+        filtra_p = filtra_hsa.query("pval <= 0.01 & logfc < -1 | logfc > 1")
+        filtra_p["id"].to_csv("./datasets/GSE59492/mirs-pval.txt", index=False)
 
 
 gse59492()
@@ -68,7 +68,7 @@ def gse74618():
         filtra_p["id"].to_csv("./tbu/GSE74618/mirs-pval.txt", index=False)
 
 
-gse74618()
+# gse74618()
 
 
 def gse49012():
@@ -81,8 +81,8 @@ def gse49012():
         filtra_p = filtra_hsa[filtra_hsa.id.str.contains(mir)]
         print(filtra_p)
     elif ans == "N":
-        filtra_p = filtra_hsa.query("pval <= 0.05 & logfc < -1 | logfc > 1")
-        filtra_p["id"].to_csv("./tbu/GSE49012/mirs-pval.txt", index=False)
+        filtra_p = filtra_hsa.query("pval <= 0.01 & logfc < -1 | logfc > 1")
+        filtra_p["id"].to_csv("./datasets/GSE49012/mirs-pval.txt", index=False)
 
 
 gse49012()
