@@ -1,3 +1,5 @@
+id
+hsa-miR-487b
 hsa-miR-665
 hsa-miR-1228
 hsa-miR-149
@@ -5,6 +7,7 @@ hsa-miR-92b
 hsa-miR-583
 hsa-miR-541
 hsa-miR-631
+hsa-miR-129
 hsa-miR-129
 hsa-miR-221
 hsa-miR-490
@@ -332,7 +335,6 @@ hsa-miR-517a
 hsa-miR-517b
 hsa-miR-599
 hsa-miR-628
-hsa-miR-487b
 hsa-miR-760
 hsa-miR-548d
 hsa-miR-216b

@@ -1,26 +1,27 @@
 Names	total	elements
-GSE49012 GSE59492	22	hsa-miR-200b
-		hsa-miR-483
-		hsa-miR-155
-		hsa-miR-940
-		hsa-miR-222
-		hsa-miR-221
-		hsa-miR-181d
-		hsa-miR-200a
-		hsa-miR-193b
-		hsa-miR-31
-		hsa-miR-143
-		hsa-miR-199b
-		hsa-miR-141
-		hsa-miR-378
-		hsa-miR-150
-		hsa-miR-182
-		hsa-miR-10a
-		hsa-miR-21
-		hsa-miR-146b
-		hsa-miR-200c
-		hsa-miR-551b
-		hsa-miR-1234
+GSE49012 GSE59492	22	
+hsa-miR-200b
+hsa-miR-483
+hsa-miR-155
+hsa-miR-940
+hsa-miR-222
+hsa-miR-221
+hsa-miR-181d
+hsa-miR-200a
+hsa-miR-193b
+hsa-miR-31
+hsa-miR-143
+hsa-miR-199b
+hsa-miR-141
+hsa-miR-378
+hsa-miR-150
+hsa-miR-182
+hsa-miR-10a
+hsa-miR-21
+hsa-miR-146b
+hsa-miR-200c
+hsa-miR-551b
+hsa-miR-1234
 GSE49012	419	hsa-miR-579
 		hsa-miR-520f
 		hsa-miR-376b

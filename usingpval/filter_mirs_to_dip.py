@@ -47,7 +47,11 @@ def gse59492():
         filtra_p = filtra_hsa[filtra_hsa.id.str.contains(mir)]
         print(filtra_p)
     elif ans == "N":
-        filtra_p = filtra_hsa.query("pval <= 0.01 & logfc < -1 | logfc > 1")
+        frames = [
+            filtra_hsa.query("pval <= 0.01 & logfc > 1"),
+            filtra_hsa.query("pval <= 0.01 & logfc < -1"),
+        ]
+        filtra_p = pd.concat(frames)
         filtra_p["id"].to_csv("./datasets/GSE59492/mirs-pval.txt", index=False)
 
 
@@ -81,7 +85,11 @@ def gse49012():
         filtra_p = filtra_hsa[filtra_hsa.id.str.contains(mir)]
         print(filtra_p)
     elif ans == "N":
-        filtra_p = filtra_hsa.query("pval <= 0.01 & logfc < -1 | logfc > 1")
+        frames = [
+            filtra_hsa.query("pval <= 0.01 & logfc > 1"),
+            filtra_hsa.query("pval <= 0.01 & logfc < -1"),
+        ]
+        filtra_p = pd.concat(frames)
         filtra_p["id"].to_csv("./datasets/GSE49012/mirs-pval.txt", index=False)
 
 
