@@ -1,5 +1,5 @@
 Names	total	elements
-GSE49012 GSE59492	22	
+GSE49012 GSE59492	20	
 hsa-miR-200b
 hsa-miR-483
 hsa-miR-155
@@ -12,7 +12,6 @@ hsa-miR-193b
 hsa-miR-31
 hsa-miR-143
 hsa-miR-199b
-hsa-miR-141
 hsa-miR-378
 hsa-miR-150
 hsa-miR-182
@@ -20,9 +19,18 @@ hsa-miR-10a
 hsa-miR-21
 hsa-miR-146b
 hsa-miR-200c
-hsa-miR-551b
 hsa-miR-1234
-GSE49012	419	hsa-miR-579
+GSE59492	10	hsa-miR-4668
+		hsa-miR-194-2
+		hsa-miR-3195
+		hsa-miR-199a-1
+		hsa-miR-4274
+		hsa-miR-3162
+		hsa-miR-224
+		hsa-miR-199a-2
+		hsa-miR-3613
+		hsa-miR-4317
+GSE49012	421	hsa-miR-579
 		hsa-miR-520f
 		hsa-miR-376b
 		hsa-miR-453
@@ -111,8 +119,8 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-885
 		hsa-miR-125b-2
 		hsa-miR-195
-		hsa-miR-487b
 		hsa-miR-96
+		hsa-miR-487b
 		hsa-miR-604
 		hsa-miR-668
 		hsa-miR-512
@@ -191,8 +199,8 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-572
 		hsa-miR-330
 		hsa-miR-136
-		hsa-miR-220a
 		hsa-miR-551a
+		hsa-miR-220a
 		hsa-miR-320
 		hsa-miR-615
 		hsa-miR-301a
@@ -200,6 +208,7 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-941
 		hsa-miR-449a
 		hsa-miR-223
+		hsa-miR-141
 		hsa-miR-508
 		hsa-miR-889
 		hsa-miR-576
@@ -233,8 +242,8 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-18a
 		hsa-miR-659
 		hsa-miR-603
-		hsa-miR-527
 		hsa-miR-185
+		hsa-miR-527
 		hsa-miR-20b
 		hsa-miR-770
 		hsa-miR-423
@@ -271,9 +280,9 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-520h
 		hsa-miR-623
 		hsa-miR-548a
+		hsa-miR-657
 		hsa-miR-522
 		hsa-miR-10b
-		hsa-miR-657
 		hsa-miR-555
 		hsa-let-7c
 		hsa-miR-216b
@@ -294,8 +303,8 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-600
 		hsa-miR-586
 		hsa-miR-367
-		hsa-miR-7
 		hsa-miR-621
+		hsa-miR-7
 		hsa-miR-382
 		hsa-miR-656
 		hsa-miR-454
@@ -405,9 +414,10 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-1224
 		hsa-miR-302d
 		hsa-miR-765
-		hsa-miR-624
 		hsa-miR-346
+		hsa-miR-624
 		hsa-miR-639
+		hsa-miR-551b
 		hsa-miR-372
 		hsa-miR-649
 		hsa-miR-326
@@ -436,19 +446,8 @@ GSE49012	419	hsa-miR-579
 		hsa-miR-190b
 		hsa-miR-744
 		hsa-miR-936
-		hsa-miR-671
 		hsa-miR-921
+		hsa-miR-671
 		hsa-miR-643
 		hsa-miR-584
 		hsa-miR-135a
-GSE59492	11	hsa-miR-4668
-		hsa-miR-194-2
-		hsa-miR-3195
-		hsa-miR-199a-1
-		hsa-miR-4274
-		hsa-miR-3162
-		hsa-miR-224
-		hsa-miR-199a-2
-		hsa-miR-3613
-		hsa-miR-4317
-		hsa-miR-3187
