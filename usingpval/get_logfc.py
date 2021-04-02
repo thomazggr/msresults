@@ -1,4 +1,5 @@
 import pandas as pd
+from scripts.reverse import rvs
 
 mirs = [
     "hsa-miR-200b",
@@ -37,5 +38,27 @@ gs2 = gs2[["ID", "logFC"]]
 
 gs1x = gs1[gs1["ID"].isin(mirs)].query("logFC >= 1 | logFC <= -1")
 gs2x = gs2[gs2["ID"].isin(mirs)].query("logFC >= 1 | logFC <= -1")
-# gs1x.to_clipboard()
-gs2x.to_clipboard()
+
+mir = []
+logfc = []
+for i, j in gs1x.iterrows():
+    mir.append(j["ID"])
+    logfc.append(rvs(j["logFC"]))
+
+gs1x = pd.DataFrame(data=[mir, logfc])
+gs1x = gs1x.T
+gs1x.columns = ["ID", "GSE49012"]
+
+mir2 = []
+logfc2 = []
+for i, j in gs2x.iterrows():
+    mir.append(j["ID"])
+    logfc.append(rvs(j["logFC"]))
+
+gs2x = pd.DataFrame(data=[mir, logfc])
+gs2x = gs2x.T
+gs2x.columns = ["ID", "GSE59492"]
+
+
+res = pd.merge(gs1x, gs2x, on="ID")
+res.to_clipboard()
