@@ -34,7 +34,7 @@ def keggpathways(mirdip):
         inplace=True,
     )
     kegg_filtered = keggpathways[
-        keggpathways.Term.str.contains("Insulin signaling pathway")
+        keggpathways.Term.str.contains("Transcriptional misregulation in cancer")
     ]
     kegg_filtered.reset_index(inplace=True)
     genes_filtered = str(kegg_filtered.at[0, "Genes"]).replace(", ", "|")
@@ -62,7 +62,10 @@ def buildtable(tablefiltered):
     df.columns = pd.MultiIndex.from_product([["0,0,0"], df.columns])
     df2 = df.astype(int)
     # print(df2)
-    df2.to_csv("results_nashonly/miRNA_nash/data_circos_inspath.txt", sep="\t")
+    df2.to_csv(
+        "results_nashonly/miRNA_nash/data_circos_transcriptional_misregulation_cancer.txt",
+        sep="\t",
+    )
 
 
 buildtable(tablefilter)
