@@ -34,7 +34,7 @@ def keggpathways(mirdip):
         inplace=True,
     )
     kegg_filtered = keggpathways[
-        keggpathways.Term.str.contains("Transcriptional misregulation in cancer")
+        keggpathways.Term.str.contains("Sphingolipid signaling pathway")
     ]
     kegg_filtered.reset_index(inplace=True)
     genes_filtered = str(kegg_filtered.at[0, "Genes"]).replace(", ", "|")
@@ -63,7 +63,7 @@ def buildtable(tablefiltered):
     df2 = df.astype(int)
     # print(df2)
     df2.to_csv(
-        "results_nashonly/miRNA_nash/data_circos_transcriptional_misregulation_cancer.txt",
+        "results_nashonly/miRNA_nash/data_circos_sphingo.txt",
         sep="\t",
     )
 

@@ -28,7 +28,7 @@ mirs = [
 
 # mirdip results from genes from NASH datasets
 genes_mirs = pd.read_csv(
-    "mRNA-analysis/3datasets_new/mirdip.csv",
+    "results_nashonly/mRNA_nash/mirdip.csv",
     skiprows=20,
     usecols=["Gene Symbol", "MicroRNA", "Integrated Score", "Number of Sources"],
 )

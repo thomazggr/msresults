@@ -25,6 +25,7 @@ def rvs(val):
 
                 elif df.at[i, j] / abs(df.at[i, j]) == -1:
                     df.at[i, j] = abs(df.at[i, j])
+        return df
 
     elif type(val) == str:
         return
