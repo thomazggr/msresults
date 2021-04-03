@@ -1,29 +1,20 @@
 import pandas as pd
 
-kegg = pd.read_csv("usingpval/keggo/kegg_david.txt", sep="\t")
+kegg = pd.read_csv("results_nashonly/miRNA_nash/kegg_pathway.txt", sep="\t")
 
-list_genes = "NR4A2|NFIL3|CEBPD|RCAN1|TP53I3|THBS1|FOSB|ME1|GOLM1|EFHD1|TMEM45B|GADD45G|DNMT3L|IGFBP1|FOS|SOCS2|CRISPLD2"
+list_genes = "GADD45G|FADS2|P4HA1|SOCS2|FOSB|IGFBP2|TRHDE|ME1"
 
 r = kegg[kegg.Genes.str.contains(list_genes)]
 
 list_genes2 = [
-    "NR4A2",
-    "NFIL3",
-    "CEBPD",
-    "RCAN1",
-    "TP53I3",
-    "THBS1",
-    "FOSB",
-    "ME1",
-    "GOLM1",
-    "EFHD1",
-    "TMEM45B",
     "GADD45G",
-    "DNMT3L",
-    "IGFBP1",
-    "FOS",
+    "FADS2",
+    "P4HA1",
     "SOCS2",
-    "CRISPLD2",
+    "FOSB",
+    "IGFBP2",
+    "TRHDE",
+    "ME1",
 ]
 
 # r2 = kegg[~kegg.Genes.isin(list_genes2)]

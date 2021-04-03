@@ -1,9 +1,14 @@
+# SCRIPT TO CREATE TABLE WITH DATA FROM SCORE BETWEEN miRNA AND IT'S TARGET GENE THAT IS PRESENT IN A SPECIFIC PATHWAY FROM KEGG
+# DATA WILL BE USED IN CIRCOS PLOT WHICH IT'S CONFIG FILE HAS TO BE FOLLOWED TO GET A BETTER VISUALIZATION USING BLACK COLOR FROM
+# MULTINDEX THAT HAS BEEN CREATED. ROW WITH COL COLORS HAS TO BE ALWAYS ON.
+
 import pandas as pd
 
 # Same path for mirDIP results, KEGG pathway files and building final table
+# This function creates the dataframe from mirdip score with genes
 def mirdipresults():
     mirsscoretargets = pd.read_csv(
-        "./usingpval/mirdip/mirdip_results.csv", sep=",", skiprows=27
+        "results_nashonly/miRNA_nash/mirdip.csv", sep=",", skiprows=39
     )
     mirsscoretargets.drop(
         columns=["Uniprot", "Score Class", "Pseudogene"], inplace=True
@@ -13,9 +18,9 @@ def mirdipresults():
 
 mirdip = mirdipresults()
 
-
+# Gets kegg data and sets a pathway to be searched for
 def keggpathways(mirdip):
-    keggpathways = pd.read_csv("./usingpval/keggo/kegg_david.txt", sep="\t")
+    keggpathways = pd.read_csv("results_nashonly/miRNA_nash/kegg_pathway.txt", sep="\t")
     keggpathways.drop(
         columns=[
             "Category",
@@ -44,7 +49,7 @@ def keggpathways(mirdip):
 
 tablefilter = keggpathways(mirdip)
 
-
+# Build the table that will be used in Circos Plot with multi index with black color for genes and let miRNAs be colored from circos
 def buildtable(tablefiltered):
     pd.set_option("precision", 0)
     dataframe = tablefiltered.pivot(index="mirna", columns="gene", values="score")
@@ -54,9 +59,10 @@ def buildtable(tablefiltered):
     df.sort_values(by=["Total"], axis=1, ascending=False, inplace=True)
     df.drop(index=["Total"], inplace=True)
     # df.loc[(len(df.index.values))] = ['0,0,0 '] * len(df.columns)
-    df.columns = pd.MultiIndex.from_product([df.columns, ["0,0,0"]])
+    df.columns = pd.MultiIndex.from_product([["0,0,0"], df.columns])
     df2 = df.astype(int)
-    df2.to_csv("./usingpval/data_circos_inspath.txt", sep="\t")
+    # print(df2)
+    df2.to_csv("results_nashonly/miRNA_nash/data_circos_inspath.txt", sep="\t")
 
 
 buildtable(tablefilter)

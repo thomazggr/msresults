@@ -60,5 +60,5 @@ gs2x = gs2x.T
 gs2x.columns = ["ID", "GSE59492"]
 
 
-res = pd.merge(gs1x, gs2x, on="ID")
-res.to_clipboard()
+res = pd.merge(gs1x, gs2x, on="ID", how="inner")
+print(res)
