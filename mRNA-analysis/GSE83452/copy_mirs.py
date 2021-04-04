@@ -15,7 +15,7 @@ frames = [
 ]
 results_de = pd.concat(frames)
 results_de.reset_index(inplace=True, drop=True)
-results_de["acc"].to_clipboard(index=False)
+# results_de["acc"].to_clipboard(index=False)
 print(results_de)
 
 # results = pd.read_csv("./mRNA-analysis/GSE37031/genes_david_conversion.txt", sep="\t")

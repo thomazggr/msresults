@@ -1,11 +1,12 @@
 import pandas as pd
 
 dfresults = pd.read_csv(
-    "./mRNA-analysis/GSE151158/GSE151158-CTvsNASH.top.table.tsv",
+    "./mRNA-analysis/GSE63067/GSE63067.top.table.tsv",
     sep="\t",
+    usecols=["adj.P.Val", "P.Value", "logFC", "Gene.symbol"],
 )
 # dfresults.drop(columns=["t", "B", "Description", "ID", "GB_ACC"], inplace=True)
-colunas = ["id", "adjpval", "pval", "logfc"]
+colunas = ["adjpval", "pval", "logfc", "id"]
 dfresults.columns = colunas
 print(dfresults.shape)
 
@@ -15,8 +16,5 @@ frames = [
 ]
 results_de = pd.concat(frames)
 results_de.reset_index(inplace=True, drop=True)
-# results_de["id"].to_clipboard(index=False)
-print(results_de)
-
-# results = pd.read_csv("./mRNA-analysis/GSE37031/genes_david_conversion.txt", sep="\t")
-# results.To.to_clipboard(index=False)
+results_de["id"].to_clipboard(index=False, header=False)
+# print(results_de)

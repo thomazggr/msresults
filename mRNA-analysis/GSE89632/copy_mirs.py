@@ -10,4 +10,4 @@ frames = [
 ]
 results_de = pd.concat(frames)
 results_de.reset_index(inplace=True, drop=True)
-results_de["id"].to_clipboard(index=False)
+results_de["id"].to_clipboard(index=False, header=False)

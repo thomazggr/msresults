@@ -1,7 +1,7 @@
 import pandas as pd
 from scripts.reverse import rvs
 
-gens = [
+"""gens = [
     "GADD45G",
     "FADS2",
     "P4HA1",
@@ -10,6 +10,26 @@ gens = [
     "IGFBP2",
     "TRHDE",
     "ME1",
+]"""
+
+gens = [
+    "GADD45G",
+    "FADS2",
+    "P4HA1",
+    "SOCS2",
+    "FOSB",
+    "TRHDE",
+    "ME1",
+    "RTP3",
+    "PHLDA1",
+    "IL1RN",
+    "IP6K3",
+    "CEBPD",
+    "SDC4",
+    "PEG10",
+    "TMEM154",
+    "IGFBP2",
+    "RTP3",
 ]
 
 # get data from datasets results
@@ -38,9 +58,20 @@ gs3 = pd.read_csv(
 gs3.columns = ["logFC", "ID"]
 gs3 = gs3[["ID", "logFC"]]
 
+gs4 = pd.read_csv(
+    "mRNa-analysis/GSE63067/GSE63067.top.table.tsv",
+    sep="\t",
+    usecols=["logFC", "Gene.symbol"],
+)
+gs4.columns = ["logFC", "ID"]
+gs4 = gs4[["ID", "logFC"]]
+gs4.columns = ["ID", "GSE63067"]
+
 gs1x = gs1[gs1["ID"].isin(gens)].query("logFC >= 1 | logFC <= -1")
 gs2x = gs2[gs2["ID"].isin(gens)].query("logFC >= 1 | logFC <= -1")
 gs3x = gs3[gs3["ID"].isin(gens)].query("logFC >= 1 | logFC <= -1")
+gs4x = gs4[gs4["ID"].isin(gens)].query("GSE63067 >= 1 | GSE63067 <= -1")
+
 
 mir1 = []
 logfc1 = []
@@ -73,8 +104,13 @@ gs3x = gs3x.T
 gs3x.columns = ["ID", "GSE89632"]
 
 
-res = pd.merge(gs1x, gs2x, on="ID", how="inner")
+"""res = pd.merge(gs1x, gs2x, on="ID", how="inner")
 
 res = pd.merge(res, gs3x, on="ID", how="inner")
 
-print(gs1x, gs2x, gs3x)
+res = pd.merge(res, gs4x, on="ID", how="inner")"""
+
+# gs1x.to_clipboard(index=False)
+# gs2x.to_clipboard(index=False)
+# gs3x.to_clipboard(index=False)
+gs4x.to_clipboard(index=False)

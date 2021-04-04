@@ -28,8 +28,8 @@ mirs = [
 
 # mirdip results from genes from NASH datasets
 genes_mirs = pd.read_csv(
-    "results_nashonly/mRNA_nash/mirdip.csv",
-    skiprows=20,
+    "results_nashonly/mRNA_nash/mirdip_n.csv",
+    skiprows=35,
     usecols=["Gene Symbol", "MicroRNA", "Integrated Score", "Number of Sources"],
 )
 mirslst = []
@@ -45,4 +45,4 @@ filtrado.columns = ["gene", "mir", "score", "sources"]
 # filtrado2 = filtrado.query("sources >= 14")
 filtrado.reset_index(drop=True, inplace=True)
 
-print(filtrado)
+filtrado["score"].to_clipboard(index=False, header=False)

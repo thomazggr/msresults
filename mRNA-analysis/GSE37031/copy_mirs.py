@@ -14,4 +14,4 @@ print(results_de.shape)
 results_de["id"].to_clipboard(index=False)"""
 
 results = pd.read_csv("./mRNA-analysis/GSE37031/converted_new.txt", sep="\t")
-results.To.to_clipboard(index=False)
+results.To.to_clipboard(index=False, header=False)
