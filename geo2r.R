@@ -52,67 +52,67 @@ run.geo <- function(gse, annot_gpl = FALSE, gpl, samples){
 
   # compute statistics and table of top significant genes
   fit2 <- eBayes(fit2, 0.01)
-  tT <- topTable(fit2, adjust="fdr", sort.by="B", number=250)
+  tT <- topTable(fit2, adjust="fdr", sort.by="B", number=Inf)
 
-  # tT <- subset(tT, select=c("ID","adj.P.Val","P.Value","t","B","logFC","Gene.symbol","Gene.title"))
+  # # tT <- subset(tT, select=c("ID","adj.P.Val","P.Value","t","B","logFC","Gene.symbol","Gene.title"))
   write.table(tT, file=paste0("~/Documents/Projects/msresults/", gse, ".tsv"), row.names=F, sep="\t")
 
-  # Visualize and quality control test results.
-  # Build histogram of P-values for all genes. Normal test
-  # assumption is that most genes are not differentially expressed.
-  tT2 <- topTable(fit2, adjust="fdr", sort.by="B", number=Inf)
-  png(file=paste0(gse, "_histogram.png"), width=840, height=720)
-  hist(tT2$adj.P.Val, col = "grey", border = "white", xlab = "P-adj",
-    ylab = "Number of genes", main = "P-adj value distribution")
-  dev.off()
+  # # Visualize and quality control test results.
+  # # Build histogram of P-values for all genes. Normal test
+  # # assumption is that most genes are not differentially expressed.
+  # tT2 <- topTable(fit2, adjust="fdr", sort.by="B", number=Inf)
+  # png(file=paste0(gse, "_histogram.png"), width=840, height=720)
+  # hist(tT2$adj.P.Val, col = "grey", border = "white", xlab = "P-adj",
+    # ylab = "Number of genes", main = "P-adj value distribution")
+  # dev.off()
   
-  # # summarize test results as "up", "down" or "not expressed"
-  dT <- decideTests(fit2, adjust.method="fdr", p.value=0.05)
+  # # # summarize test results as "up", "down" or "not expressed"
+  # dT <- decideTests(fit2, adjust.method="fdr", p.value=0.05)
 
-  # # Venn diagram of results
-  # vennDiagram(dT, circle.col=palette())
+  # # # Venn diagram of results
+  # # vennDiagram(dT, circle.col=palette())
 
-  # # create Q-Q plot for t-statistic
-  # t.good <- which(!is.na(fit2$F)) # filter out bad probes
-  # qqt(fit2$t[t.good], fit2$df.total[t.good], main="Moderated t statistic")
+  # # # create Q-Q plot for t-statistic
+  # # t.good <- which(!is.na(fit2$F)) # filter out bad probes
+  # # qqt(fit2$t[t.good], fit2$df.total[t.good], main="Moderated t statistic")
 
-  # # volcano plot (log P-value vs log fold change)
-  colnames(fit2) # list contrast names
-  ct <- 1        # choose contrast of interest
+  # # # volcano plot (log P-value vs log fold change)
+  # colnames(fit2) # list contrast names
+  # ct <- 1        # choose contrast of interest
   
-  png(file=paste0(gse, "_volcano.png"), width=720, height=840)
-  limma::volcanoplot(fit2, coef=ct, main=colnames(fit2)[ct], pch=20,
-    highlight=length(which(dT[,ct]!=0)), names=rep('+', nrow(fit2)))
-  dev.off()
+  # png(file=paste0(gse, "_volcano.png"), width=720, height=840)
+  # limma::volcanoplot(fit2, coef=ct, main=colnames(fit2)[ct], pch=20,
+    # highlight=length(which(dT[,ct]!=0)), names=rep('+', nrow(fit2)))
+  # dev.off()
 
-  # MD plot (log fold change vs mean log expression)
-  # highlight statistically significant (p-adj < 0.05) probes
-  png(file=paste0(gse, "_mdplot.png"), width=840, height=720)
-  limma::plotMD(fit2, column=ct, status=dT[,ct], legend=F, pch=20, cex=1)
-  abline(h=0)
-  dev.off()
+  # # MD plot (log fold change vs mean log expression)
+  # # highlight statistically significant (p-adj < 0.05) probes
+  # png(file=paste0(gse, "_mdplot.png"), width=840, height=720)
+  # limma::plotMD(fit2, column=ct, status=dT[,ct], legend=F, pch=20, cex=1)
+  # abline(h=0)
+  # dev.off()
 
-  # ################################################################
-  # # General expression data analysis
-  ex <- exprs(gset)
+  # # ################################################################
+  # # # General expression data analysis
+  # ex <- exprs(gset)
 
-  # # box-and-whisker plot
-  ord <- order(gs)  # order samples by group
-  palette(c("#1B9E77", "#7570B3", "#E7298A", "#E6AB02", "#D95F02",
-            "#66A61E", "#A6761D", "#B32424", "#B324B3", "#666666"))
-  par(mar=c(7,4,2,1))
-  title <- paste (gse, "/", annotation(gset), sep ="")
-  png(file=paste0(gse, "_box_and_whisker.png"), width=840, height=720)
-  boxplot(ex[,ord], boxwex=0.6, notch=T, main=title, outline=FALSE, las=2, col=gs[ord])
-  legend("topleft", groups, fill=palette(), bty="n")
-  dev.off()
+  # # # box-and-whisker plot
+  # ord <- order(gs)  # order samples by group
+  # palette(c("#1B9E77", "#7570B3", "#E7298A", "#E6AB02", "#D95F02",
+            # "#66A61E", "#A6761D", "#B32424", "#B324B3", "#666666"))
+  # par(mar=c(7,4,2,1))
+  # title <- paste (gse, "/", annotation(gset), sep ="")
+  # png(file=paste0(gse, "_box_and_whisker.png"), width=840, height=720)
+  # boxplot(ex[,ord], boxwex=0.6, notch=T, main=title, outline=FALSE, las=2, col=gs[ord])
+  # legend("topleft", groups, fill=palette(), bty="n")
+  # dev.off()
 
-  # # expression value distribution
-  par(mar=c(4,4,2,1))
-  title <- paste ("GSE33814", "/", annotation(gset), " value distribution", sep ="")
-  png(file=paste0(gse, "_expression_dist.png"), width=840, height=720)
-  limma::plotDensities(ex, group=gs, main=title, legend ="topright")
-  dev.off()
+  # # # expression value distribution
+  # par(mar=c(4,4,2,1))
+  # title <- paste ("GSE33814", "/", annotation(gset), " value distribution", sep ="")
+  # png(file=paste0(gse, "_expression_dist.png"), width=840, height=720)
+  # limma::plotDensities(ex, group=gs, main=title, legend ="topright")
+  # dev.off()
 
   # # UMAP plot (dimensionality reduction)
   # ex <- na.omit(ex) # eliminate rows with NAs
