@@ -30,6 +30,16 @@ datasets = {
 
 FILTER_STATE = "`adj.P.Val` <= 0.05 and (`logFC` < -1 or `logFC` > 1)"
 
+resulted_dataframe = pd.DataFrame(
+    data = {
+        "Gene.ID":[],
+        "logFC":[],
+        "P.Value":[],
+        "adj.P.Val":[],
+        "Dataset":[]
+    }
+)
+
 for dataset, column in zip(datasets.keys(), datasets.values()):
     ds_results = pd.read_csv(f"{dataset}/{dataset}.tsv", sep="\t")
     ds_results.dropna(subset=[column], inplace=True)
@@ -38,7 +48,25 @@ for dataset, column in zip(datasets.keys(), datasets.values()):
     
     ds_results_filtered = ds_results[ds_results[column].str.contains(string_ids)]
     ds_results_filtered = ds_results_filtered[[column, "logFC", "P.Value", "adj.P.Val"]]
-    ds_final = ds_results_filtered.query(FILTER_STATE)
+    ds_final = (
+        ds_results_filtered
+        .query(FILTER_STATE)
+        .drop_duplicates(
+            subset=[column],
+            keep="first"
+        )
+        .rename(
+            columns={
+                column:"Gene.ID"
+            }
+        )
+    )
+
+    ds_final["Gene.ID"] = ds_final["Gene.ID"].str.replace(".0", "", regex=False)
+    ds_final["Dataset"] = dataset
+
+    resulted_dataframe = pd.concat([resulted_dataframe, ds_final])
+
     print("")
     print("")
     print(dataset)
@@ -46,6 +74,12 @@ for dataset, column in zip(datasets.keys(), datasets.values()):
     print(ds_final)
     print("")
     print("")
+
+print("DATASET FINAL")
+print("")
+print(resulted_dataframe)
+print("")
+print("")
 
 to_R_script = ",".join(list_gene_ids)
 os.system(f"Rscript get_gene.R --organism hsa --geneids {to_R_script}")
