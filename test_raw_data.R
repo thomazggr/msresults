@@ -35,77 +35,107 @@ get.annotation <- function(organism = NULL) {
 
 Sys.setenv(VROOM_CONNECTION_SIZE = "500000")
 
-gse <- "GSE33814"
-annot_gpl <- TRUE
-gpl <- "GPL6884"
-samples <- "1XXX1X111111111XX1XXXXXX000XX0XXX00000X00X00"
+get_expression <- function(gse, annot_gpl, gpl, samples, annotation_data, gene_names_filter, labels){
+    gset <- GEOquery::getGEO(gse, GSEMatrix =TRUE, AnnotGPL=annot_gpl)
+    if (length(gset) > 1) idx <- grep(gpl, attr(gset, "names")) else idx <- 1
+    gset <- gset[[idx]]
 
-gset <- GEOquery::getGEO(gse, GSEMatrix =TRUE, AnnotGPL=annot_gpl)
-if (length(gset) > 1) idx <- grep(gpl, attr(gset, "names")) else idx <- 1
-gset <- gset[[idx]]
+    # make proper column names to match toptable 
+    fvarLabels(gset) <- make.names(fvarLabels(gset))
 
-# make proper column names to match toptable 
-fvarLabels(gset) <- make.names(fvarLabels(gset))
+    # group membership for all samples
+    gsms <- samples
+    sml <- strsplit(gsms, split="")[[1]]
 
-# group membership for all samples
-gsms <- samples
-sml <- strsplit(gsms, split="")[[1]]
+    # filter out excluded samples (marked as "X")
+    sel <- which(sml != "X")
+    sml <- sml[sel]
+    gset <- gset[ ,sel]
 
-# filter out excluded samples (marked as "X")
-sel <- which(sml != "X")
-sml <- sml[sel]
-gset <- gset[ ,sel]
+    # log2 transformation
+    ex <- exprs(gset)
+    qx <- as.numeric(quantile(ex, c(0., 0.25, 0.5, 0.75, 0.99, 1.0), na.rm=T))
+    LogC <- (qx[5] > 100) ||
+            (qx[6]-qx[1] > 50 && qx[2] > 0)
+    if (LogC) { ex[which(ex <= 0)] <- NaN
+    exprs(gset) <- log2(ex) }
 
-# log2 transformation
-ex <- exprs(gset)
-qx <- as.numeric(quantile(ex, c(0., 0.25, 0.5, 0.75, 0.99, 1.0), na.rm=T))
-LogC <- (qx[5] > 100) ||
-        (qx[6]-qx[1] > 50 && qx[2] > 0)
-if (LogC) { ex[which(ex <= 0)] <- NaN
-exprs(gset) <- log2(ex) }
+    expression_data <- as.data.frame(exprs(gset))
+    expression_data$illumina <- row.names(expression_data)
 
-#head(gset)
+    exp_data_att <- expression_data %>%
+                    dplyr::left_join(annotation_data, 
+                                by=c("illumina"))
 
-ilmn_filter <- c("ILMN_1766405", "ILMN_1725193", "ILMN_1678841", "ILMN_1651498", 
-"ILMN_1686116", "ILMN_1669523", "ILMN_1728445", "ILMN_1779448", "ILMN_1798926", 
-"ILMN_2083469", "ILMN_1790689", "ILMN_1764714", "ILMN_1778357")
+    exp_data_filtered <- dplyr::filter(exp_data_att, ext_gene %in% gene_names_filter) %>%
+                            dplyr::distinct(ext_gene, .keep_all=TRUE)
+
+    row.names(exp_data_filtered) <- exp_data_filtered$ext_gene
+    exp_data_filtered <- dplyr::select(exp_data_filtered, -c(illumina, entrez_id, ext_gene)) %>%
+                            t() %>%
+                            as.data.frame()
+    
+    exp_data_filtered$labels <- labels
+
+    return(exp_data_filtered)
+}
 
 gene_names_filter <- c("FOS", "IGFBP1", "IGFBP2", "THBS1", "IRS2", "SOCS2", 
-"UBD", "GADD45G", "DNMT3L", "GOLM1", "ANGPTL8", "EFHD1", "CRISPLD2")
+"UBD", "GADD45G", "DNMT3L", "GOLM1", "ANGPTL8", "EFHD1", "CRISPLD2", "labels")
 
-expression_data <- as.data.frame(exprs(gset))
-expression_data$illumina <- row.names(expression_data)
+super_df <- data.frame(matrix(ncol = 14, nrow = 0))
+colnames(super_df) <- gene_names_filter
 
-annotation_data <- get.annotation(organism="hsa")
+datasets <- list(
+    list("GSE33814", TRUE, "GPL6884", "1XXX1X111111111XX1XXXXXX000XX0XXX00000X00X00", 
+        c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+            TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+            FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)),
+    list("GSE89632", FALSE, "GPL14951", "X1XXXXXX11X11XX111X1X111XXXX1X11111X10000000000000000X000X00000", 
+        c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+            TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+            FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)),
+    list("GSE37031", FALSE, "GPL14877", "111111110000000",
+        c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+)
 
-exp_data_att <- expression_data %>%
-                dplyr::left_join(annotation_data, 
-                            by=c("illumina"))
+ann <- get.annotation(organism="hsa")
 
-exp_data_filtered <- dplyr::filter(exp_data_att, ext_gene %in% gene_names_filter) %>%
-                        dplyr::distinct(ext_gene, .keep_all=TRUE)
+for(d in datasets){
+    # print(d)
+    # quit()
+    data <- get_expression(d[[1]], d[[2]], d[[3]], d[[4]], ann, gene_names_filter, d[[5]])
+    super_df <- dplyr::bind_rows(super_df, data)
+}
 
-row.names(exp_data_filtered) <- exp_data_filtered$ext_gene
-exp_data_filtered <- dplyr::select(exp_data_filtered, -c(illumina, entrez_id, ext_gene)) %>%
-                        t() %>%
-                        as.data.frame()
-
-exp_data_filtered$labels <- c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
-TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
-FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)
-print(head(exp_data_filtered, 3))
+# print(head(super_df, 3))
 # quit()
 for(col in gene_names_filter){
-    if(col %in% names(exp_data_filtered)){
-        pred <- ROCR::prediction(exp_data_filtered[[col]], exp_data_filtered[["labels"]])
+    if(col %in% names(super_df)){
+        curr_df <- na.omit(dplyr::select(super_df, c(col, "labels")))
+        if(nrow(curr_df) == 0){
+            print("")
+            print(paste("No rows for", col, "after `na.omit`"))
+            print("")
+        } else{
+            pred <- ROCR::prediction(curr_df[[col]], curr_df[["labels"]])
 
-        #perf <- ROCR::performance(pred, "tpr", "fpr")
+            # perf <- ROCR::performance(pred, "tpr", "fpr")
 
-        auc <- ROCR::performance(pred, "auc")
-        print(paste(auc@y.name, col))
-        print(auc@y.values)
+            auc <- ROCR::performance(pred, "auc")
+            
+            print("")
+            print(paste(auc@y.name, col))
+            print(auc@y.values)
+            print("")
+            # ROCR::plot(perf)
+        }
+        
+        
     } else{
+        print("")
         print(paste("No column for", col))
+        print("")
     }
     
 }
