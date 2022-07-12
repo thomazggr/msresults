@@ -75,9 +75,19 @@ for dataset, column in zip(datasets.keys(), datasets.values()):
     print("")
     print("")
 
+df_dict_stan = {
+    "GSE33814" :{},
+    "GSE37031" :{},
+    "GSE89632" :{}
+}
+
+for row in resulted_dataframe.itertuples():
+    df_dict_stan[row[5]][row[1]] = row[2]
+
 print("DATASET FINAL")
 print("")
-print(resulted_dataframe)
+# print(resulted_dataframe)
+print(pd.DataFrame(df_dict_stan).transpose())
 print("")
 print("")
 
