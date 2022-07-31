@@ -3,3 +3,6 @@
 *.fls
 writing/*.log
 *.synctex.gz
+*.lof
+*.lot
+*.toc
