@@ -8,7 +8,7 @@ suppressMessages(
     })
 )
 
-get.annotation <- function(organism = NULL) {
+get_annotation <- function(organism = NULL) {
     if (organism %in% c("mmu", "mmusculus_gene_ensembl")) {
         org_ensembl <- "mmusculus_gene_ensembl"
     } else if (organism %in% c("hsa", "hsapiens_gene_ensembl")) {
@@ -39,7 +39,8 @@ get.annotation <- function(organism = NULL) {
 
 Sys.setenv(VROOM_CONNECTION_SIZE = "500000")
 
-except_get_expression <- function(gse, annot_gpl, gpl, samples, annotation_data, gene_names_filter, labels) {
+except_get_expression <- function(gse, annot_gpl, gpl, samples,
+annotation_data, gene_names_filter, labels) {
     gset <- GEOquery::getGEO(gse, GSEMatrix = TRUE, AnnotGPL = annot_gpl)
     if (length(gset) > 1) idx <- grep(gpl, attr(gset, "names")) else idx <- 1
     gset <- gset[[idx]]
@@ -93,7 +94,8 @@ except_get_expression <- function(gse, annot_gpl, gpl, samples, annotation_data,
     return(exp_data_filtered)
 }
 
-common_get_expression <- function(gse, annot_gpl, gpl, samples, annotation_data, gene_names_filter, labels) {
+common_get_expression <- function(gse, annot_gpl, gpl, samples,
+annotation_data, gene_names_filter, labels) {
     gset <- GEOquery::getGEO(gse, GSEMatrix = TRUE, AnnotGPL = annot_gpl)
     if (length(gset) > 1) idx <- grep(gpl, attr(gset, "names")) else idx <- 1
     gset <- gset[[idx]]
@@ -188,7 +190,7 @@ datasets <- list(
             TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
 )
 
-ann <- get.annotation(organism = "hsa")
+ann <- get_annotation(organism = "hsa")
 
 for (d in datasets){
     if (d[[1]] == "GSE37031") {
