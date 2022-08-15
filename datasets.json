@@ -1,0 +1,61 @@
+{
+    "GSE33814":{
+        "samples":"1XXX1X111111111XX1XXXXXX000XX0XXX00000X00X00",
+        "annot_gpl":true,
+        "gpl":"GPL6884",
+        "order_ROC":[
+            true, true, true, true, true, true, true, true, true, true,
+            true, true, false, false, false, false, false, false, false,
+            false, false, false, false, false, false]
+    },
+    "GSE89632":{
+        "samples":"X1XXXXXX11X11XX111X1X111XXXX1X11111X10000000000000000X000X00000",
+        "annot_gpl":false,
+        "gpl":"GPL14951",
+        "order_ROC":[
+            true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, false, false,
+            false, false, false, false, false, false, 
+            false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false]
+    },
+    "GSE37031":{
+        "samples":"111111110000000",
+        "annot_gpl":false,
+        "gpl":"GPL14877",
+        "order_ROC":[
+            true, true, true, true, true, true, true, true, 
+            false, false, false, false, false, false, false]
+    },
+    "GSE48452":{
+        "samples":"000001X0001XXXXXXXXXXXXXX11X0XX11XXX1X1X0XXXX1X10XXXXX0X1XXXXXX1X11XXXXXX",
+        "annot_gpl":true,
+        "gpl":"GPL11532",
+        "order_ROC":[]
+    },
+    "GSE63067":{
+        "samples":"XX1111111110000000",
+        "annot_gpl":true,
+        "gpl":"GPL570",
+        "order_ROC":[]
+    },
+    "GSE164760":{
+        "samples":"000000XXXXXXXX11111111111111111111111111111111111111111111111111111111111111111111111111XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "annot_gpl":false,
+        "gpl":"GPL13667",
+        "order_ROC":[
+            false, false, false, false, false, false, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true, true, true, true, 
+            true, true, true, true]
+    }
+}

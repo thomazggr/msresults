@@ -144,20 +144,6 @@ annotation_data, gene_names_filter, labels) {
     return(exp_data_filtered)
 }
 
-gene_entrez <- c("51280",
-                 "3485",
-                 "10537",
-                 "10912",
-                 "7057",
-                 "2353",
-                 "3484",
-                 "80303",
-                 "8835",
-                 "8660",
-                 "83716",
-                 "55908",
-                 "29947", "labels")
-
 gene_names_filter <- c("FOS", "IGFBP1", "IGFBP2", "THBS1", "IRS2", "SOCS2",
 "UBD", "GADD45G", "DNMT3L", "GOLM1", "ANGPTL8", "EFHD1", "CRISPLD2", "labels")
 
@@ -187,7 +173,22 @@ datasets <- list(
         "GPL14877",
         "111111110000000",
         c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,
-            TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+            TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)),
+    list("GSE164760",
+        FALSE,
+        "GPL13667",
+        paste0("111111XXXXXXXX000000000000000000000000000000000000",
+        "00000000000000000000000000000000000000XXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXXXXXXXXXXXXXXX"),
+        c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE,
+        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
 )
 
 ann <- get_annotation(organism = "hsa")
