@@ -173,22 +173,23 @@ datasets <- list(
         "GPL14877",
         "111111110000000",
         c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,
-            TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)),
-    list("GSE164760",
-        FALSE,
-        "GPL13667",
-        paste0("111111XXXXXXXX000000000000000000000000000000000000",
-        "00000000000000000000000000000000000000XXXXXXXXXXXX",
-        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-        "XXXXXXXXXXXXXXXXXXXX"),
-        c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE,
-        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
-        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
-        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
-        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
-        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
-        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
-        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+            TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+    # list("GSE164760",
+    #     FALSE,
+    #     "GPL13667",
+    #     "000000XXXXXXXX11111111111111111111111111111111111111111111111111111111111111111111111111XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    #     c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+    #         TRUE, TRUE, TRUE, TRUE))
 )
 
 ann <- get_annotation(organism = "hsa")
@@ -213,37 +214,60 @@ for (d in datasets){
             gene_names_filter,
             d[[5]])
     }
-    print(as.character(d[[1]]))
-    print(head(data, 5))
-    print("")
+    #print(as.character(d[[1]]))
+    #print(head(data, 5))
+    #print("")
     super_df <- dplyr::bind_rows(super_df, data)
 }
 
-for (col in gene_names_filter){
-    if (col %in% names(super_df) && col != "labels") {
-        curr_df <- na.omit(dplyr::select(super_df, c(col, "labels")))
-        if (nrow(curr_df) == 0) {
-            print("")
-            print(paste("No rows for", col, "after `na.omit`"))
-            print("")
+gene_panel <- c("ANGPTL8", "UBD")
+
+
+if (length(gene_panel) > 0) {
+    panel_dataframe <- data.frame(
+        panel=numeric(),
+        labels=logical()
+    )
+    for (gene in gene_panel) {
+        current <- na.omit(dplyr::select(super_df, c(gene, "labels"))) %>%
+                    dplyr::rename(panel=gene)
+        panel_dataframe <- dplyr::union_all(panel_dataframe, current)
+        print(head(current))
+    }
+    print("")
+    print(head(panel_dataframe))
+    pred <- ROCR::prediction(panel_dataframe[["panel"]], panel_dataframe[["labels"]])
+    auc <- ROCR::performance(pred, "auc")
+    print(paste(auc@y.name, paste0(gene_panel, collapse = " + ")))
+    print(as.character(auc@y.values))
+    print("")
+} else {
+    for (col in gene_names_filter){
+        if (col %in% names(super_df) && col != "labels") {
+            curr_df <- na.omit(dplyr::select(super_df, c(col, "labels")))
+            if (nrow(curr_df) == 0) {
+                print("")
+                print(paste("No rows for", col, "after `na.omit`"))
+                print("")
+            } else {
+                pred <- ROCR::prediction(curr_df[[col]], curr_df[["labels"]])
+
+                # para ter performance perf <- ROCR::performance(pred, "tpr", "fpr")
+
+                auc <- ROCR::performance(pred, "auc")
+
+                print("")
+                print(paste(auc@y.name, col))
+                print(as.character(auc@y.values))
+                print("")
+                #  para plotar performance ROCR::plot(perf)
+            }
+
+
         } else {
-            pred <- ROCR::prediction(curr_df[[col]], curr_df[["labels"]])
-
-            # para ter performance perf <- ROCR::performance(pred, "tpr", "fpr")
-
-            auc <- ROCR::performance(pred, "auc")
-
             print("")
-            print(paste(auc@y.name, col))
-            print(as.character(auc@y.values))
+            print(paste("No column for", col))
             print("")
-            #  para plotar performance ROCR::plot(perf)
         }
-
-
-    } else {
-        print("")
-        print(paste("No column for", col))
-        print("")
     }
 }
